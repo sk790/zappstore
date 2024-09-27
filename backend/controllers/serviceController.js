@@ -37,6 +37,10 @@ export const editService = async (req, res) => {
   try {
     const service = await serviceModel.findById(serviceId);
 
+    if (!service) {
+      return res.status(404).json({ error: "Service not found" });
+    }
+
     if (service.provider.toString() !== _id.toString()) {
       return res
         .status(401)
@@ -59,6 +63,9 @@ export const deleteService = async (req, res) => {
   const { serviceId } = req.params;
   try {
     const service = await serviceModel.findById(serviceId);
+    if (!service) {
+      return res.status(404).json({ error: "Service not found" });
+    }
     if (service.provider.toString() !== _id.toString()) {
       return res
         .status(401)
@@ -79,5 +86,8 @@ export const deleteService = async (req, res) => {
 export const getSingleService = async (req, res) => {
   const { serviceId } = req.params;
   const service = await serviceModel.findById(serviceId).populate("provider");
+  if (!service) {
+    return res.status(404).json({ error: "Service not found" });
+  }
   res.status(201).json(service);
 };
