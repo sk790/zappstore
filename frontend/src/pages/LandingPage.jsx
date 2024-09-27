@@ -8,10 +8,12 @@ import {
   ZapIcon,
   PaintbrushIcon,
   SearchIcon,
+  StarIcon
 } from "lucide-react";
-import { AuthPopup } from "./AuthPopup";
+import { AuthPopup } from "../components/AuthPopup";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "../components/mode-toggle";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function LandingPage() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -27,6 +29,30 @@ export default function LandingPage() {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
   };
+
+  const reviews = [
+    {
+      id: 1,
+      name: "Alice Johnson",
+      rating: 5,
+      comment: "Found an excellent electrician through ServiceHub. Quick and professional service!",
+      service: "Electrician"
+    },
+    {
+      id: 2,
+      name: "Bob Smith",
+      rating: 4,
+      comment: "Great platform for finding reliable mechanics. Saved me a lot of time and hassle.",
+      service: "Mechanic"
+    },
+    {
+      id: 3,
+      name: "Carol Davis",
+      rating: 5,
+      comment: "The painters I hired through ServiceHub did an amazing job. Highly recommended!",
+      service: "Painter"
+    }
+  ];
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -208,6 +234,42 @@ export default function LandingPage() {
             </div>
           </section>
         </main>
+        <section id="reviews" className="w-full py-12 md:py-24 lg:py-32">
+            <div className="container px-4 md:px-6 mx-auto">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
+                What Our Customers Say
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {reviews.map((review) => (
+                  <Card key={review.id}>
+                    <CardContent className="p-6">
+                      <div className="flex items-center space-x-4 mb-4">
+                        <div className="rounded-full bg-primary h-12 w-12 flex items-center justify-center text-primary-foreground font-bold text-lg">
+                          {review.name.charAt(0)}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold">{review.name}</h3>
+                          <p className="text-sm text-muted-foreground">{review.service}</p>
+                        </div>
+                      </div>
+                      <div className="flex mb-2">
+                        {[...Array(5)].map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            className={`h-5 w-5 ${
+                              i < review.rating ? "text-yellow-400" : "text-gray-300"
+                            }`}
+                            fill={i < review.rating ? "currentColor" : "none"}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-muted-foreground">{review.comment}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
         <footer className="border-t">
           <div className="container mx-auto px-4 md:px-6 py-6 flex flex-col sm:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
