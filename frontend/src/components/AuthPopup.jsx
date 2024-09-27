@@ -25,7 +25,6 @@ export function AuthPopup({ isOpen, onClose, type }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Here you would typically send the data to your backend
     console.log("Form submitted", { authType, accountType, ...formData })
     toast({
       title: authType === "login" ? "Logged in successfully" : "Signed up successfully",
@@ -50,13 +49,13 @@ export function AuthPopup({ isOpen, onClose, type }) {
               <div className="space-y-2">
                 <Label>Account Type</Label>
                 <RadioGroup defaultValue="user" onValueChange={(value) => setAccountType(value)}>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 cursor-pointer">
                     <RadioGroupItem value="user" id="user" />
-                    <Label htmlFor="user">User</Label>
+                    <Label htmlFor="user" className="cursor-pointer">User</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="provider" id="provider" />
-                    <Label htmlFor="provider">Service Provider</Label>
+                    <Label htmlFor="provider" className="cursor-pointer">Service Provider</Label>
                   </div>
                 </RadioGroup>
               </div>
