@@ -1,7 +1,7 @@
 import serviceModel from "../models/serviceModel.js";
 import userModel from "../models/userModel.js";
 
-//for users
+//for admin
 export const getAllServices = async (req, res) => {
   const services = await serviceModel.find().populate("provider");
   res.status(201).json(services);

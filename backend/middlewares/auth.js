@@ -11,3 +11,16 @@ export const auth = async (req, res, next) => {
     res.status(401).send("Unauthorized");
   }
 };
+
+export const authorizeRole = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res
+        .status(403)
+        .json(
+          `Role: ${req.user.role} is not allowed to access this resources`
+        );
+    }
+    next();
+  };
+};

@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ["user", "provider"], required: true },
+    role: { type: String, enum: ["user", "provider", "admin"], required: true },
     services: [{ type: Schema.Types.ObjectId, ref: "Service" }], // Only for providers
     bookedServices: [{ type: Schema.Types.ObjectId, ref: "Booking" }], // Only for users
     location: { type: String, required: true },

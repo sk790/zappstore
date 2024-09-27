@@ -57,27 +57,3 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   const { name, email, password } = req.body;
 };
-
-export const updateServices = async (req, res) => {
-  const { _id } = req.user;
-  const { name, description, price, category, serviceType } = req.body;
-
-  try {
-    const provider = await userModel.findById(_id);
-    if (!provider) {
-      return res.status(404).json({ error: "Provider not found" });
-    }
-    provider.services.push({
-      name,
-      description,
-      price,
-      category,
-      serviceType,
-      provider: provider._id,
-    });
-    await provider.save();
-    res.json({ message: "Services updated successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
