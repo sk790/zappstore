@@ -8,7 +8,7 @@ import {
   ZapIcon,
   PaintbrushIcon,
   SearchIcon,
-  StarIcon
+  StarIcon,
 } from "lucide-react";
 import { AuthPopup } from "../components/AuthPopup";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -35,33 +35,36 @@ export default function LandingPage() {
       id: 1,
       name: "Alice Johnson",
       rating: 5,
-      comment: "Found an excellent electrician through ServiceHub. Quick and professional service!",
-      service: "Electrician"
+      comment:
+        "Found an excellent electrician through ServiceHub. Quick and professional service!",
+      service: "Electrician",
     },
     {
       id: 2,
       name: "Bob Smith",
       rating: 4,
-      comment: "Great platform for finding reliable mechanics. Saved me a lot of time and hassle.",
-      service: "Mechanic"
+      comment:
+        "Great platform for finding reliable mechanics. Saved me a lot of time and hassle.",
+      service: "Mechanic",
     },
     {
       id: 3,
       name: "Carol Davis",
       rating: 5,
-      comment: "The painters I hired through ServiceHub did an amazing job. Highly recommended!",
-      service: "Painter"
-    }
+      comment:
+        "The painters I hired through ServiceHub did an amazing job. Highly recommended!",
+      service: "Painter",
+    },
   ];
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="flex flex-col min-h-screen">
-        <header className="px-4 lg:px-6 h-16 flex items-center border-b">
+        <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto flex justify-between items-center">
             <Link className="flex items-center justify-center" to="/">
               <MountainIcon className="h-6 w-6 mr-2" />
-              <span className="font-bold text-lg">ServiceHub</span>
+              <span className="font-bold text-lg">ZappStore</span>
             </Link>
             <nav className="flex items-center gap-4 sm:gap-6">
               <Link
@@ -235,41 +238,45 @@ export default function LandingPage() {
           </section>
         </main>
         <section id="reviews" className="w-full py-12 md:py-24 lg:py-32">
-            <div className="container px-4 md:px-6 mx-auto">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
-                What Our Customers Say
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {reviews.map((review) => (
-                  <Card key={review.id}>
-                    <CardContent className="p-6">
-                      <div className="flex items-center space-x-4 mb-4">
-                        <div className="rounded-full bg-primary h-12 w-12 flex items-center justify-center text-primary-foreground font-bold text-lg">
-                          {review.name.charAt(0)}
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold">{review.name}</h3>
-                          <p className="text-sm text-muted-foreground">{review.service}</p>
-                        </div>
+          <div className="container px-4 md:px-6 mx-auto">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
+              What Our Customers Say
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {reviews.map((review) => (
+                <Card key={review.id}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className="rounded-full bg-primary h-12 w-12 flex items-center justify-center text-primary-foreground font-bold text-lg">
+                        {review.name.charAt(0)}
                       </div>
-                      <div className="flex mb-2">
-                        {[...Array(5)].map((_, i) => (
-                          <StarIcon
-                            key={i}
-                            className={`h-5 w-5 ${
-                              i < review.rating ? "text-yellow-400" : "text-gray-300"
-                            }`}
-                            fill={i < review.rating ? "currentColor" : "none"}
-                          />
-                        ))}
+                      <div>
+                        <h3 className="text-lg font-semibold">{review.name}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {review.service}
+                        </p>
                       </div>
-                      <p className="text-muted-foreground">{review.comment}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                    <div className="flex mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <StarIcon
+                          key={i}
+                          className={`h-5 w-5 ${
+                            i < review.rating
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }`}
+                          fill={i < review.rating ? "currentColor" : "none"}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground">{review.comment}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
         <footer className="border-t">
           <div className="container mx-auto px-4 md:px-6 py-6 flex flex-col sm:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">

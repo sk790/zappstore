@@ -2,11 +2,21 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
-  const { name, email, password, role, location } = req.body;
+  const { name, email, password, role } = req.body;
   if (!name || !email || !password) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
-  const user = new userModel({ name, email, password, role, location });
+  const existingUser = await userModel.findOne({ email });
+  if (existingUser) {
+    return res.status(422).json({ error: "User already exists" });
+  }
+  const user = new userModel({
+    name,
+    email,
+    password,
+    role,
+    location: "defaul location",
+  });
   try {
     await user.save();
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -23,6 +33,8 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email);
+
   if (!email || !password) {
     return res.status(422).json({ error: "Please add all the fields" });
   }

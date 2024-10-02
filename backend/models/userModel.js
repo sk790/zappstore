@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
     role: { type: String, enum: ["user", "provider", "admin"], required: true },
     services: [{ type: Schema.Types.ObjectId, ref: "Service" }], // Only for providers
     bookedServices: [{ type: Schema.Types.ObjectId, ref: "Booking" }], // Only for users
-    location: { type: String, required: true },
+    location: { type: String, required: true,default:"default location" },
     profile: { type: String }, // Additional profile info
   },
   { timestamps: true }
