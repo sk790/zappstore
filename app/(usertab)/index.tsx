@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import SliderBanner from "@/components/Banner";
 import { AuthContext } from "@/context/authContext";
 import Search from "@/components/Search";
-import { Redirect } from "expo-router";
+import { Redirect, router } from "expo-router";
 
 const Home = () => {
   const { user, loadUser } = useContext(AuthContext);
@@ -26,65 +26,59 @@ const Home = () => {
     return <Redirect href="/login" />;
   }
 
-  const categories = [
-    { name: "Plumber", icon: require("../../assets/images/plumber.jpeg") },
+  const services = [
     {
-      name: "Electrician",
-      icon: require("../../assets/images/plumber.jpeg"),
+      provider: "5d5d6d8a5d5d6d8a5d5d6d8a",
+      serviceType: "Electrician",
+      image:
+        "https://5.imimg.com/data5/SELLER/Default/2024/1/378182076/YK/TG/SZ/32250902/electrical-work-service-for-hotel-500x500.png?width=200&height=200",
+      description:
+        "I am a professional electrician and I can fix your electrics",
+      price: 50,
+      available: true,
+      rating: 4.5,
+      reviews: [],
     },
     {
-      name: "Bike Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
+      provider: "5d5d6d8a5d5d6d8a5d5d6d8a",
+      serviceType: "Plumber",
+      image:
+        "https://5.imimg.com/data5/SELLER/Default/2024/1/378182076/YK/TG/SZ/32250902/electrical-work-service-for-hotel-500x500.png?width=200&height=200",
+      description:
+        "I am a professional electrician and I can fix your electrics",
+      price: 50,
+      available: true,
+      rating: 4.5,
+      reviews: [],
     },
     {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
+      provider: "5d5d6d8a5d5d6d8a5d5d6d8a",
+      serviceType: "Machanic",
+      image:
+        "https://5.imimg.com/data5/SELLER/Default/2024/1/378182076/YK/TG/SZ/32250902/electrical-work-service-for-hotel-500x500.png?width=200&height=200",
+      description:
+        "I am a professional electrician and I can fix your electrics",
+      price: 50,
+      available: true,
+      rating: 4.5,
+      reviews: [],
     },
     {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
-    },
-    {
-      name: "Car Mechanic",
-      icon: require("../../assets/images/plumber.jpeg"),
+      provider: "5d5d6d8a5d5d6d8a5d5d6d8a",
+      serviceType: "Electrician",
+      image:
+        "https://5.imimg.com/data5/SELLER/Default/2024/1/378182076/YK/TG/SZ/32250902/electrical-work-service-for-hotel-500x500.png?width=200&height=200",
+      description:
+        "I am a professional electrician and I can fix your electrics",
+      price: 50,
+      available: true,
+      rating: 4.5,
+      reviews: [],
     },
   ];
+  const getSp = (service: string) => {
+    router.push({ pathname: '/getsp', params: { service } });
+  };
   return (
     <>
       <SafeAreaView>
@@ -92,8 +86,8 @@ const Home = () => {
           <Navbar title="ZappStore" />
           <View style={{ padding: 10 }}>
             <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
-              Welcome, {user?.name}
-              {user?.role === "sp" ? " (SP)" : "User"}
+              Welcome, {user?.fullName}
+              {user?.role === "sp" ? " (SP)" : " (User)"}
             </Text>
             <View
               style={{
@@ -121,14 +115,16 @@ const Home = () => {
             <Text style={styles.categoriesTitle}>Most Used Services</Text>
             <View style={styles.categoriesContainer}>
               <FlatList
-                data={categories}
+                data={services}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 // keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.categoryItem}
-                    onPress={() => console.log("clicked")}
+                    onPress={() => {
+                      getSp(item.serviceType);
+                    }}
                   >
                     <View
                       style={{
@@ -149,8 +145,13 @@ const Home = () => {
                         elevation: 5,
                       }}
                     >
-                      <Image source={item.icon} style={styles.categoryIcon} />
-                      <Text style={styles.categoryText}>{item.name}</Text>
+                      <Image
+                        source={{ uri: item.image }}
+                        style={styles.categoryIcon}
+                      />
+                      <Text style={styles.categoryText}>
+                        {item.serviceType}
+                      </Text>
                     </View>
                   </TouchableOpacity>
                 )}

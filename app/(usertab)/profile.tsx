@@ -19,17 +19,19 @@ import Spinner from "@/components/Spinner";
 
 const profile = () => {
   const { user, setUserInfo } = useContext(AuthContext);
-  const [name, setName] = useState(user?.name);
+  const [fullName, setfullName] = useState(user?.fullName);
   const [email, setEmail] = useState(user?.email);
   const [password, setPassword] = useState(user?.password);
+  const [address, setAddress] = useState(user?.address);
   const [loading, setLoading] = useState(false);
+
   const handleLogout = async () => {
     await AsyncStorage.removeItem("user");
     setUserInfo(null);
-    router.push("/Login");
+    router.push("/login");
   };
   if (!user) {
-    return <Redirect href="/Login" />;
+    return <Redirect href="/login" />;
   }
 
   const handleUpdate = async () => {
@@ -42,10 +44,11 @@ const profile = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name,
+          fullName: fullName,
           email: email,
           mobile: user.mobile,
           password: password,
+          address: address,
         }),
       }
     );
@@ -82,28 +85,14 @@ const profile = () => {
                 Full Name
               </Text>
               <TextInput
-                placeholder={user?.mobile}
+                placeholder={user?.fullName}
                 style={{
                   width: "100%",
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
-                value={name}
-                onChangeText={setName}
-              />
-            </CardView>
-            <CardView>
-              <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
-                Password
-              </Text>
-              <TextInput
-                style={{
-                  width: "100%",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "gray",
-                }}
-                value={password}
-                onChangeText={setPassword}
+                value={fullName}
+                onChangeText={setfullName}
               />
             </CardView>
             <CardView>
@@ -120,6 +109,35 @@ const profile = () => {
             </CardView>
             <CardView>
               <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
+                Password
+              </Text>
+              <TextInput
+                style={{
+                  width: "100%",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "gray",
+                }}
+                value={password}
+                onChangeText={setPassword}
+              />
+            </CardView>
+
+            <CardView>
+              <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
+                Mobile
+              </Text>
+              <TextInput
+                style={{
+                  width: "100%",
+                  borderBottomWidth: 1,
+                  borderBottomColor: "gray",
+                }}
+                value={user?.mobile}
+                editable={false}
+              />
+            </CardView>
+            <CardView>
+              <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
                 Address
               </Text>
               <TextInput
@@ -128,6 +146,8 @@ const profile = () => {
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
+                value={address}
+                onChangeText={setAddress}
               />
             </CardView>
             <View
