@@ -78,7 +78,7 @@ const Home = () => {
   ];
   // useEffect(() => {
     
-  //   router.push({ pathname: "/spprofile", params: { service:"Plumber" } });
+  //   router.push({ pathname: "/menu", params: { service:"Plumber" } });
   // },[])
   const getSp = (service: string) => {
     router.push({ pathname: "/getsp", params: { service } });
@@ -174,10 +174,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   listContainer: {
-    // paddingHorizontal: 10,
   },
   categoryItem: {
-    // backgroundColor: "#f0f0f0",
     borderRadius: 20,
     paddingHorizontal: 10,
   },

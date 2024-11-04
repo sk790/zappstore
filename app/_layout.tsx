@@ -22,11 +22,19 @@ const RootLayout = () => {
         />
         <Stack.Screen
           name="login"
-          options={{ headerShown: true, title: "Login",headerTintColor: "teal", }}
+          options={{
+            headerShown: true,
+            title: "Login",
+            headerTintColor: "teal",
+          }}
         />
         <Stack.Screen
           name="signup"
           options={{ headerShown: true, title: "Signup" }}
+        />
+        <Stack.Screen
+          name="menu"
+          options={{ headerShown: true, title: "Settings" }}
         />
       </Stack>
     </AuthProvider>

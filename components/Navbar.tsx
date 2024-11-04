@@ -2,12 +2,10 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import Menu from "./Menu";
 
 const Navbar = ({ title }: { title: string }) => {
-  const [toggle, setToggle] = React.useState(false);
-  const clickToggle = () => {
-    setToggle(!toggle);
+  const openMenu = () => {
+    router.push("/(screens)menu");
   };
   return (
     <>
@@ -21,7 +19,7 @@ const Navbar = ({ title }: { title: string }) => {
           justifyContent: "space-between",
         }}
       >
-        <TouchableOpacity onPress={clickToggle}>
+        <TouchableOpacity onPress={openMenu}>
           <Ionicons name="menu" size={28} color="black" />
         </TouchableOpacity>
         <Text style={{ fontWeight: "bold", fontSize: 20, textAlign: "center" }}>

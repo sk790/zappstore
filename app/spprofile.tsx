@@ -36,7 +36,7 @@ const spprofile = () => {
           paddingHorizontal: 15,
           flexDirection: "column",
           gap: 10,
-          marginBottom:10
+          marginBottom: 10,
         }}
       >
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
@@ -48,7 +48,7 @@ const spprofile = () => {
               style={{ width: 100, height: 100, borderRadius: 50 }}
             />
             <View className="">
-              <Text style={{ fontWeight: "bold" }}>{"Saurabh"}</Text>
+              <Text style={{ fontWeight: "bold" }}>{user?.fullName||"Anonymous"}</Text>
               <Text style={{ color: "gray" }}>{"Nick name"}</Text>
               <View style={{ marginTop: 10, flexDirection: "row", gap: 1 }}>
                 <Ionicons name={"star-outline"} color={"orange"} size={17} />
@@ -85,6 +85,18 @@ const spprofile = () => {
                 </Text>
               </View>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={{ backgroundColor: "red", padding: 5, borderRadius: 5 }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                {/* <Ionicons name="" color={"white"} size={20} /> */}
+                <Text
+                  style={{ color: "white", fontWeight: "bold", fontSize: 12 }}
+                >
+                  Not available
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View>
@@ -110,7 +122,10 @@ const spprofile = () => {
           </View>
           <View style={{ flexDirection: "row", gap: 5 }}>
             <Ionicons name="thumbs-up-outline" size={20} />
-            <Text>{"Complaints resolved"}</Text>
+            <Text>
+              {"(52)"}
+              {"Complaints resolved"}
+            </Text>
           </View>
         </View>
         <View>
@@ -161,7 +176,7 @@ const spprofile = () => {
             />
             <View>
               <Text style={{ fontWeight: "bold", marginTop: 10 }}>Rating</Text>
-              <View style={{ flexDirection: "row",gap:8 }}>
+              <View style={{ flexDirection: "row", gap: 8 }}>
                 {options.map((option: any, index) => (
                   <TouchableOpacity
                     key={index}
