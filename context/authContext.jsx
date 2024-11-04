@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [location, setLocation] = useState(null);
 
   const setUserInfo = async (userInfo) => {
     setUser(userInfo);
@@ -16,9 +17,17 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(user));
     }
   };
+  const loadLocation = async () => {
+    const location = await AsyncStorage.getItem("location");
+    if (location) {
+      setLocation(JSON.parse(location));
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ user, setUserInfo,loadUser }}>
+    <AuthContext.Provider
+      value={{ user, setUserInfo, loadUser, location, loadLocation }}
+    >
       {children}
     </AuthContext.Provider>
   );

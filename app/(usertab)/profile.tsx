@@ -19,23 +19,33 @@ import Spinner from "@/components/Spinner";
 
 const profile = () => {
   const { user, setUserInfo } = useContext(AuthContext);
-  const [fullName, setfullName] = useState(user?.fullName);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState(user?.password);
-  const [address, setAddress] = useState(user?.address);
-  const [loading, setLoading] = useState(false);
+
+  const [state, setState] = useState({
+    fullName: user?.fullName,
+    email: user?.email,
+    mobile: user?.mobile,
+    password: user?.password,
+    address: user?.address,
+    loading: false,
+  });
+  // const [fullName, setfullName] = useState(user?.fullName);
+  // const [email, setEmail] = useState(user?.email);
+  // const [password, setPassword] = useState(user?.password);
+  // const [address, setAddress] = useState(user?.address);
+  // const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("user");
     setUserInfo(null);
     router.push("/login");
   };
+
   if (!user) {
     return <Redirect href="/login" />;
   }
 
   const handleUpdate = async () => {
-    setLoading(true);
+    setState({ ...state, loading: true });
     const res = await fetch(
       "https://zappstore-backend.onrender.com/api/user/update-profile",
       {
@@ -44,17 +54,17 @@ const profile = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          fullName: fullName,
-          email: email,
+          fullName: state.fullName,
+          email: state.email,
           mobile: user.mobile,
-          password: password,
-          address: address,
+          password: state.password,
+          address: state.address,
         }),
       }
     );
     const data = await res.json();
     if (data.user) {
-      setLoading(false);
+      setState({ ...state, loading: false });
       setUserInfo(data.user);
       Alert.alert("Update Profile", "Profile updated successfull.");
     }
@@ -91,8 +101,8 @@ const profile = () => {
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
-                value={fullName}
-                onChangeText={setfullName}
+                value={state.fullName}
+                onChangeText={(text) => setState({ ...state, fullName: text })}
               />
             </CardView>
             <CardView>
@@ -103,8 +113,8 @@ const profile = () => {
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
-                value={email}
-                onChangeText={setEmail}
+                value={state.email}
+                onChangeText={(text) => setState({ ...state, email: text })}
               />
             </CardView>
             <CardView>
@@ -117,8 +127,8 @@ const profile = () => {
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
-                value={password}
-                onChangeText={setPassword}
+                value={state.password}
+                onChangeText={(text) => setState({ ...state, password: text })}
               />
             </CardView>
 
@@ -146,8 +156,8 @@ const profile = () => {
                   borderBottomWidth: 1,
                   borderBottomColor: "gray",
                 }}
-                value={address}
-                onChangeText={setAddress}
+                value={state.address}
+                onChangeText={(text) => setState({ ...state, address: text })}
               />
             </CardView>
             <View
@@ -158,7 +168,7 @@ const profile = () => {
               }}
             ></View>
             <LogoutButtonView>
-              <TouchableOpacity onPress={handleUpdate} disabled={loading}>
+              <TouchableOpacity onPress={handleUpdate} disabled={state.loading}>
                 <Text
                   style={{
                     color: "gray",
@@ -166,12 +176,16 @@ const profile = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {loading ? <Spinner size={25} color="#00896AFF" /> : "Update"}
+                  {state.loading ? (
+                    <Spinner size={25} color="#00896AFF" />
+                  ) : (
+                    "Update"
+                  )}
                 </Text>
               </TouchableOpacity>
             </LogoutButtonView>
             <LogoutButtonView>
-              <TouchableOpacity onPress={handleLogout} disabled={loading}>
+              <TouchableOpacity onPress={handleLogout} disabled={state.loading}>
                 <Text
                   style={{
                     color: "gray",
@@ -179,7 +193,11 @@ const profile = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {loading ? <Spinner size={25} color="#007AFF" /> : "Logout"}
+                  {state.loading ? (
+                    <Spinner size={25} color="#007AFF" />
+                  ) : (
+                    "Logout"
+                  )}
                 </Text>
               </TouchableOpacity>
             </LogoutButtonView>

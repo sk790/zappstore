@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,18 +11,21 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  PermissionsAndroid,
 } from "react-native";
 import { Link, Redirect, router } from "expo-router";
 import { AuthContext } from "@/context/authContext";
 import Spinner from "@/components/Spinner";
+import Geolocation from "react-native-geolocation-service";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function SignUpScreen() {
+export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const { setUserInfo } = useContext(AuthContext);
+  const { setUserInfo, } = useContext(AuthContext);
 
   const validatePhoneNumber = (number: string) => {
     const phoneRegex = /^[0-9]{10}$/;
@@ -31,8 +34,8 @@ export default function SignUpScreen() {
   if (user?.role === "user") {
     return <Redirect href="/(usertab)/" />;
   }
-  if(user?.role === "sp"){
-    return <Redirect href="/(sptab)/" />
+  if (user?.role === "sp") {
+    return <Redirect href="/(sptab)/" />;
   }
   const handleLogin = async () => {
     if (!validatePhoneNumber(mobileNumber)) {
@@ -71,16 +74,17 @@ export default function SignUpScreen() {
   };
 
   const continueWithGoogle = () => {};
+  
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 pt-32 bg-white">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardAvoidingView}
       >
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.content}>
-            <Text style={styles.title}>Welcome Back</Text>
+            <Text className="text-3xl font-bold text-center text-teal-500 pb-5">Welcome Back</Text>
 
             <Text style={styles.inputLabel}>Mobile Number</Text>
 
@@ -101,6 +105,8 @@ export default function SignUpScreen() {
                 maxLength={10}
               />
             </View>
+
+            <Text style={styles.inputLabel}>Password</Text>
             <TextInput
               placeholder="Enter Password"
               style={{
@@ -155,7 +161,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingTop: 100,
+    paddingTop: 80,
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -278,5 +284,6 @@ const styles = StyleSheet.create({
   loginText: {
     textAlign: "center",
     color: "#666666",
+    paddingTop:10
   },
 });

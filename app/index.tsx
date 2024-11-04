@@ -16,7 +16,7 @@ const Home = () => {
   if (user && user.role === "sp") {
     return <Redirect href="/(sptab)/" />;
   } else if (user && user.role === "user") {
-    return <Redirect href="/(usertab)/" />;
+    return <Redirect href="/spprofile" />;
   } else {
     return <Redirect href="/login" />;
   }

@@ -22,7 +22,7 @@ const RootLayout = () => {
         />
         <Stack.Screen
           name="login"
-          options={{ headerShown: true, title: "Login" }}
+          options={{ headerShown: true, title: "Login",headerTintColor: "teal", }}
         />
         <Stack.Screen
           name="signup"

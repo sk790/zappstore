@@ -18,7 +18,7 @@ import Search from "@/components/Search";
 import { Redirect, router } from "expo-router";
 
 const Home = () => {
-  const { user, loadUser } = useContext(AuthContext);
+  const { user, loadUser, location } = useContext(AuthContext);
   useEffect(() => {
     loadUser();
   }, [user]);
@@ -76,8 +76,12 @@ const Home = () => {
       reviews: [],
     },
   ];
+  // useEffect(() => {
+    
+  //   router.push({ pathname: "/spprofile", params: { service:"Plumber" } });
+  // },[])
   const getSp = (service: string) => {
-    router.push({ pathname: '/getsp', params: { service } });
+    router.push({ pathname: "/getsp", params: { service } });
   };
   return (
     <>
@@ -86,7 +90,7 @@ const Home = () => {
           <Navbar title="ZappStore" />
           <View style={{ padding: 10 }}>
             <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
-              Welcome, {user?.fullName}
+              Welcome, {user && user.fullName ? user.fullName : user.mobile}
               {user?.role === "sp" ? " (SP)" : " (User)"}
             </Text>
             <View
