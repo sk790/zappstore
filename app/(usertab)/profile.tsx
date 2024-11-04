@@ -28,11 +28,6 @@ const profile = () => {
     address: user?.address,
     loading: false,
   });
-  // const [fullName, setfullName] = useState(user?.fullName);
-  // const [email, setEmail] = useState(user?.email);
-  // const [password, setPassword] = useState(user?.password);
-  // const [address, setAddress] = useState(user?.address);
-  // const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("user");
@@ -58,7 +53,7 @@ const profile = () => {
           email: state.email,
           mobile: user.mobile,
           password: state.password,
-          address: state.address,
+          address: state.address.trim(),
         }),
       }
     );
