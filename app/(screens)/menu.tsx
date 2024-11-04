@@ -52,9 +52,12 @@ const menu = () => {
             {user?.fullName || "Anonymous"}
           </Text>
           <TouchableOpacity onPress={() => router.push("/(usertab)/profile")}>
-            <Text style={{ fontWeight: "500", color: "blue" }}>
-              Edit my profile
-            </Text>
+            <View style={{ flexDirection: "row", gap: 5 }}>
+              <Text style={{ fontWeight: "500", color: "blue" }}>
+                Edit my profile
+              </Text>
+              <Ionicons name="pencil-sharp" size={16} color="red" />
+            </View>
           </TouchableOpacity>
         </View>
       </View>

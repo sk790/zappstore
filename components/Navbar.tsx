@@ -5,7 +5,7 @@ import { router } from "expo-router";
 
 const Navbar = ({ title }: { title: string }) => {
   const openMenu = () => {
-    router.push("/(screens)menu");
+    router.push("/(screens)/menu");
   };
   return (
     <>

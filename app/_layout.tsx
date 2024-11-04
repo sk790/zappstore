@@ -33,7 +33,7 @@ const RootLayout = () => {
           options={{ headerShown: true, title: "Signup" }}
         />
         <Stack.Screen
-          name="menu"
+          name="(screens)/menu"
           options={{ headerShown: true, title: "Settings" }}
         />
       </Stack>
