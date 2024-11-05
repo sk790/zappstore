@@ -7,14 +7,8 @@ const RootLayout = () => {
   return (
     <AuthProvider>
       <Stack>
-        <Stack.Screen
-          name="(usertab)"
-          options={{ headerShown: false, title: "Home" }}
-        />
-        <Stack.Screen
-          name="(sptab)"
-          options={{ headerShown: false, title: "Home" }}
-        />
+        <Stack.Screen name="(usertab)" options={{ headerShown: false }} />
+        <Stack.Screen name="(sptab)" options={{ headerShown: false }} />
 
         <Stack.Screen
           name="index"

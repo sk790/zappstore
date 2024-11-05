@@ -16,8 +16,7 @@ import {
 import { Link, Redirect, router } from "expo-router";
 import { AuthContext } from "@/context/authContext";
 import Spinner from "@/components/Spinner";
-import Geolocation from "react-native-geolocation-service";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -27,24 +26,21 @@ export default function Login() {
 
   const { setUserInfo, } = useContext(AuthContext);
 
-  const validatePhoneNumber = (number: string) => {
-    const phoneRegex = /^[0-9]{10}$/;
-    return phoneRegex.test(number);
-  };
-  if (user?.role === "user") {
-    return <Redirect href="/(usertab)/" />;
-  }
-  if (user?.role === "sp") {
-    return <Redirect href="/(sptab)/" />;
+  // const validatePhoneNumber = (number: string) => {
+  //   const phoneRegex = /^[0-9]{10}$/;
+  //   return phoneRegex.test(number);
+  // };
+  if(user){
+    return <Redirect href="/"/>
   }
   const handleLogin = async () => {
-    if (!validatePhoneNumber(mobileNumber)) {
-      Alert.alert(
-        "Invalid Phone Number",
-        "Please enter a valid 10-digit phone number."
-      );
-      return;
-    }
+    // if (!validatePhoneNumber(mobileNumber)) {
+    //   Alert.alert(
+    //     "Invalid Phone Number",
+    //     "Please enter a valid 10-digit phone number."
+    //   );
+    //   return;
+    // }
     setLoading(true);
     const res = await fetch(
       "https://zappstore-backend.onrender.com/api/user/login",
@@ -63,7 +59,7 @@ export default function Login() {
     if (data.user) {
       setLoading(false);
       setUserInfo(data.user);
-      router.push("/(usertab)/");
+      router.push("/");
     } else {
       setLoading(false);
       Alert.alert(

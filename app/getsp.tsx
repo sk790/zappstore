@@ -7,7 +7,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useContext } from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import SpCard from "@/components/SpCard";
 import NoService from "@/components/NoService";
 import { AuthContext } from "@/context/authContext";
@@ -15,6 +15,29 @@ import { AuthContext } from "@/context/authContext";
 const getsp = () => {
   const { service } = useLocalSearchParams();
   const { user } = useContext(AuthContext);
+
+  if (!user.address) {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+        <Text style={{ fontSize: 20, marginBottom: 10 }}>
+          Please update your address fist
+        </Text>
+        <Link
+          href={"/(usertab)/profile"}
+          style={{ borderBottomColor: "gray", borderBottomWidth: 1 }}
+        >
+          <Text
+            style={{
+              color: "blue",
+              fontSize: 16,
+            }}
+          >
+            Go to profile
+          </Text>
+        </Link>
+      </View>
+    );
+  }
 
   const sp = [
     {

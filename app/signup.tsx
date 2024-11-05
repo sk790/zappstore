@@ -33,9 +33,8 @@ export default function SignUpScreen() {
     return passwordRegex.test(password);
   };
   const { user, setUserInfo } = useContext(AuthContext);
-
   if (user) {
-    return <Redirect href="/(usertab)/" />;
+    return <Redirect href="/" />;
   }
 
   const handleSignUp = async () => {
@@ -83,7 +82,7 @@ export default function SignUpScreen() {
     if (data.user) {
       setLoading(false);
       setUserInfo(data.user);
-      router.push("/(usertab)/");
+      router.push("/");
     } else {
       setLoading(false);
       Alert.alert("Sign Up Failed", `${data.message}`);

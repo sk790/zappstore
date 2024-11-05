@@ -7,18 +7,18 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useContext } from "react";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "@/context/authContext";
 import { Ionicons } from "@expo/vector-icons";
 
 const menu = () => {
   const { user, setUserInfo } = useContext(AuthContext);
+  if (!user) return <Redirect href="/login" />;
 
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("user");
+  const handleLogout = () => {
+    AsyncStorage.removeItem("user");
     setUserInfo(null);
-    router.push("/login");
   };
 
   const menuItems = [
@@ -37,7 +37,13 @@ const menu = () => {
     { label: "Contact Us", color: "#2365f2", icon: "home" },
     { label: "Rate Us", color: "#2365f2", icon: "home" },
   ];
-
+  const editProfile = () => {
+    if (user?.role === "sp") {
+      router.push("/(sptab)/profile");
+    } else {
+      router.push("/(usertab)/profile");
+    }
+  };
   return (
     <ScrollView contentContainerStyle={{ padding: 30 }}>
       <View style={{ flexDirection: "row", marginBottom: 1 }}>
@@ -51,7 +57,7 @@ const menu = () => {
           <Text style={{ fontWeight: "bold" }}>
             {user?.fullName || "Anonymous"}
           </Text>
-          <TouchableOpacity onPress={() => router.push("/(usertab)/profile")}>
+          <TouchableOpacity onPress={editProfile}>
             <View style={{ flexDirection: "row", gap: 5 }}>
               <Text style={{ fontWeight: "500", color: "blue" }}>
                 Edit my profile
