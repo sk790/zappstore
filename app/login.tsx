@@ -11,12 +11,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  PermissionsAndroid,
 } from "react-native";
 import { Link, Redirect, router } from "expo-router";
 import { AuthContext } from "@/context/authContext";
 import Spinner from "@/components/Spinner";
-
 
 export default function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -24,14 +22,14 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
-  const { setUserInfo, } = useContext(AuthContext);
+  const { setUserInfo } = useContext(AuthContext);
 
   // const validatePhoneNumber = (number: string) => {
   //   const phoneRegex = /^[0-9]{10}$/;
   //   return phoneRegex.test(number);
   // };
-  if(user){
-    return <Redirect href="/"/>
+  if (user) {
+    return <Redirect href="/" />;
   }
   const handleLogin = async () => {
     // if (!validatePhoneNumber(mobileNumber)) {
@@ -70,7 +68,6 @@ export default function Login() {
   };
 
   const continueWithGoogle = () => {};
-  
 
   return (
     <SafeAreaView className="flex-1 pt-32 bg-white">
@@ -80,7 +77,9 @@ export default function Login() {
       >
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.content}>
-            <Text className="text-3xl font-bold text-center text-teal-500 pb-5">Welcome Back</Text>
+            <Text className="text-3xl font-bold text-center text-teal-500 pb-5">
+              Welcome Back
+            </Text>
 
             <Text style={styles.inputLabel}>Mobile Number</Text>
 
@@ -280,6 +279,13 @@ const styles = StyleSheet.create({
   loginText: {
     textAlign: "center",
     color: "#666666",
-    paddingTop:10
+    paddingTop: 10,
+  },
+  container2: {
+    flex: 1,
+  },
+  map: {
+    width: "100%",
+    height: "100%",
   },
 });

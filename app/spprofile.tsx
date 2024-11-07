@@ -15,7 +15,11 @@ import { Ionicons } from "@expo/vector-icons";
 import CommentCard from "@/components/CommentCard";
 
 const spprofile = () => {
-  const { name } = useLocalSearchParams();
+  const { sp } = useLocalSearchParams();
+  const sps = JSON.parse(sp as string);
+  console.log(sps.provider.mobile);
+  
+  
   const { user } = useContext(AuthContext);
   const openWhatsapp = () => {
     // Linking.openURL(`whatsapp://send?text=Hello&phone=+7900482041`)
@@ -48,7 +52,7 @@ const spprofile = () => {
               style={{ width: 100, height: 100, borderRadius: 50 }}
             />
             <View className="">
-              <Text style={{ fontWeight: "bold" }}>{user?.fullName||"Anonymous"}</Text>
+              <Text style={{ fontWeight: "bold" }}>{sps?.fullName||"Anonymous"}</Text>
               <Text style={{ color: "gray" }}>{"Nick name"}</Text>
               <View style={{ marginTop: 10, flexDirection: "row", gap: 1 }}>
                 <Ionicons name={"star-outline"} color={"orange"} size={17} />
