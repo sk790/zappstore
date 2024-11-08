@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
-import SpCard from "@/components/SpCard";
+// import SpCard from "@/components/SpCard";
 import NoService from "@/components/NoService";
 import { AuthContext } from "@/context/authContext";
 import MapView, { Marker } from "react-native-maps";
@@ -17,11 +17,13 @@ import Loading from "@/components/Loading";
 const getsp = () => {
   const { service } = useLocalSearchParams();
   const { user } = useContext(AuthContext);
+  // console.log({user});
+  
   const [sp, setSp] = useState<null | any>(null);
   const [loading, setLoading] = useState(false);
 
-  const centralLatitude = 29.9079687;
-  const centralLongitude = 77.9444166;
+  const centralLatitude = user?.location.latitude
+  const centralLongitude = user?.location.longitude
   const rangeInKm = 10; // desired range in kilometers
 
   const latitudeDelta = rangeInKm / 110.574;

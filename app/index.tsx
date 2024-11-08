@@ -27,7 +27,7 @@ const Home = () => {
 
       // Get current location
       let loc = await Location.getCurrentPositionAsync({});
-      console.log(loc.coords);
+      // console.log(loc.coords);
       const res = await fetch(
         "https://zappstore-backend.onrender.com/api/user/update-location",
         {

@@ -13,13 +13,13 @@ import { useLocalSearchParams } from "expo-router";
 import { AuthContext } from "@/context/authContext";
 import { Ionicons } from "@expo/vector-icons";
 import CommentCard from "@/components/CommentCard";
+import { formatMongoDate } from "@/constants/formatedDate";
 
 const spprofile = () => {
   const { sp } = useLocalSearchParams();
   const sps = JSON.parse(sp as string);
-  console.log(sps.provider.mobile);
-  
-  
+  // console.log(sps.provider.mobile);
+
   const { user } = useContext(AuthContext);
   const openWhatsapp = () => {
     // Linking.openURL(`whatsapp://send?text=Hello&phone=+7900482041`)
@@ -31,6 +31,7 @@ const spprofile = () => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const options = ["1", "2", "3", "4", "5"];
+
   return (
     <ScrollView>
       <View
@@ -52,7 +53,9 @@ const spprofile = () => {
               style={{ width: 100, height: 100, borderRadius: 50 }}
             />
             <View className="">
-              <Text style={{ fontWeight: "bold" }}>{sps?.fullName||"Anonymous"}</Text>
+              <Text style={{ fontWeight: "bold" }}>
+                {sps?.fullName || "Anonymous"}
+              </Text>
               <Text style={{ color: "gray" }}>{"Nick name"}</Text>
               <View style={{ marginTop: 10, flexDirection: "row", gap: 1 }}>
                 <Ionicons name={"star-outline"} color={"orange"} size={17} />
@@ -90,25 +93,21 @@ const spprofile = () => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ backgroundColor: "red", padding: 5, borderRadius: 5 }}
+              style={{ backgroundColor: "yellow", padding: 5, borderRadius: 5 }}
             >
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row",justifyContent:"center" }}>
                 {/* <Ionicons name="" color={"white"} size={20} /> */}
                 <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 12 }}
+                  style={{ color: "black", fontWeight: "bold", fontSize: 12}}
                 >
-                  Not available
+                 {sps?.available ? "Available" : "Not Available"}
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
         <View>
-          <Text>
-            {
-              "Description of the service provider goes here of the service provider goes here of the service provider goes hereof the service provider goes here of the service provider goes here"
-            }
-          </Text>
+          <Text>{sps?.description}</Text>
         </View>
         <View style={{ flexDirection: "column", gap: 8 }}>
           <Text style={{ fontWeight: "bold", marginBottom: 10 }}>Details</Text>
@@ -125,10 +124,18 @@ const spprofile = () => {
             <Text>{"Shope name"}</Text>
           </View>
           <View style={{ flexDirection: "row", gap: 5 }}>
+            <Ionicons name="storefront-outline" size={20} />
+            <Text>{`Start from ${formatMongoDate(
+              sps?.provider.createdAt
+            )}`}</Text>
+          </View>
+          <View style={{ flexDirection: "row", gap: 5 }}>
             <Ionicons name="thumbs-up-outline" size={20} />
             <Text>
-              {"(52)"}
-              {"Complaints resolved"}
+              <Text style={{ fontWeight: "bold" }}>
+                {sps.provider.serviceResolved}
+              </Text>{" "}
+              Complaints resolved
             </Text>
           </View>
         </View>

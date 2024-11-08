@@ -4,7 +4,6 @@ import {
   ScrollView,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
 } from "react-native";
@@ -12,7 +11,6 @@ import React, { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "@/components/Navbar";
 import { AuthContext } from "@/context/authContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Redirect, router } from "expo-router";
 import { CardView, LogoutButtonView } from "@/components/CardView";
 import Spinner from "@/components/Spinner";
@@ -28,12 +26,6 @@ const profile = () => {
     address: user?.address,
     loading: false,
   });
-
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("user");
-    setUserInfo(null);
-    router.push("/login");
-  };
 
   if (!user) {
     return <Redirect href="/login" />;
@@ -175,23 +167,6 @@ const profile = () => {
                     <Spinner size={25} color="#00896AFF" />
                   ) : (
                     "Update"
-                  )}
-                </Text>
-              </TouchableOpacity>
-            </LogoutButtonView>
-            <LogoutButtonView>
-              <TouchableOpacity onPress={handleLogout} disabled={state.loading}>
-                <Text
-                  style={{
-                    color: "gray",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {state.loading ? (
-                    <Spinner size={25} color="#007AFF" />
-                  ) : (
-                    "Logout"
                   )}
                 </Text>
               </TouchableOpacity>

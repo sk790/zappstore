@@ -31,7 +31,7 @@ export const LogoutButtonView = ({ children }: any) => {
   return (
     <View
       style={{
-        marginHorizontal: 10,
+        // marginHorizontal: 10,
         backgroundColor: "white",
         paddingVertical: 12,
         borderRadius: 30,
